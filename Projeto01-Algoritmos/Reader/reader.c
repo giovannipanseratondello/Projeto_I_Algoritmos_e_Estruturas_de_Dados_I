@@ -3,14 +3,14 @@
 #include <stdbool.h>
 #include <string.h>
 #include "reader.h"
-#include "Pilha/pilha.h" 
-#include "Fila/fila.h"
-#include "Lista_Seq/lista_seq.h"
-#include "Listas_Enc/lista_enc.h"
-#include "Lista_Cabeca/lista_cabeca.h"
-#include "Lista_Ord/lista_ord.h"
-#include "Lista_Gen/lista_gen.h"
-#include "Lista_Cruz/lista_cruz.h"
+#include "../Pilha/pilha.h" 
+#include "../Fila/fila.h"
+#include "../Lista_Seq/lista_seq.h"
+#include "../Lista_Enc/lista_enc.h"
+#include "../Lista_Cabeca/lista_cabeca.h"
+#include "../Lista_Ord/lista_ord.h"
+#include "../Lista_Gen/lista_gen.h"
+#include "../Lista_Cruz/lista_cruz.h"
 
 struct item{
     // identificacao e texto
