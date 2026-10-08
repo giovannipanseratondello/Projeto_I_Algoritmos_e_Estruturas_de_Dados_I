@@ -10,7 +10,6 @@ typedef struct query QUERY;
 QUERY *query_carregar( char *arquivo);
 void query_destruir( QUERY **query);
 bool query_avaliar_item(QUERY *q, ITEM *item);
-
-
+void processar(ITEM *item, void *contexto);
 
 #endif

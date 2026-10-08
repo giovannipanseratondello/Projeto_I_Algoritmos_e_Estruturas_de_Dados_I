@@ -2,18 +2,27 @@
 #include <stdio.h>
 #include "pilha.h"
 
-typedef struct no
-{
+typedef struct no{
     ITEM *item;
     struct no *prior;
 
-} NO;
-
+}NO;
 
 struct pilha{
     int size;
     NO *top;
 };
+
+/* Informações */
+bool pilha_vazia(PILHA *p){
+    if(p == NULL || p->size == 0) return true;
+    else return false;
+}
+int pilha_tamanho(PILHA *p){
+    if(p == NULL) return -1;
+
+    return p->size;
+}
 
 PILHA *pilha_criar(){
     PILHA *p = malloc(sizeof(PILHA));
@@ -22,19 +31,6 @@ PILHA *pilha_criar(){
     p->top = NULL;
     p->size = 0;
     return p;
-}
-
-void pilha_apagar(PILHA **p){
-    if(p == NULL || *p == NULL) return;
-
-    ITEM *item;
-    while(!pilha_vazia(*p)){
-        item = pilha_desempilhar(*p);
-        item_apagar(&item);
-    }
-    free(item);
-    free(*p);
-    *p = NULL;
 }
 
 /* Operações da pilha */
@@ -71,30 +67,32 @@ ITEM *pilha_topo(PILHA *p){
     return p->top->item;
 }
 
-/* Informações */
-bool pilha_vazia(PILHA *p){
-    if(p == NULL || p->size == 0) return true;
-    else return false;
+void pilha_apagar(PILHA **p){
+    if(p == NULL || *p == NULL) return;
+
+    ITEM *item;
+    while(!pilha_vazia(*p)){
+        item = pilha_desempilhar(*p);
+        item_apagar(&item);
+    }
+    free(item);
+    free(*p);
+    *p = NULL;
 }
-int pilha_tamanho(PILHA *p){
-    if(p == NULL) return -1;
 
-    return p->size;
-}
-
-
-void pilha_buscar(PILHA *p, ITEM *item_ref, const char *campo, void (*processar)(ITEM *item, int resultado_comp)) {
-    if (p == NULL || pilha_vazia(p) || item_ref == NULL || campo == NULL || processar == NULL) {
+void pilha_buscar(PILHA *p, void (*processar)(ITEM *item, void *), void *contexto) {
+    if (p == NULL || pilha_vazia(p) || processar == NULL) {
         return;
     }
 
     NO *aux = p->top;
     while (aux != NULL) {
-        // Usa a item_comparar genérica!
-        int comp = item_comparar(aux->item, item_ref, campo);
-        
+        /*
+        Retorna (-1) caso for menor que o item de referência
+        Retorna (0) caso forem iguais
+        */
         // Dispara a função callback enviando o item atual e o resultado da comparação (-1, 0, ou 1)
-        processar(aux->item, comp);
+        processar(aux->item, contexto);
         
         aux = aux->prior;
         

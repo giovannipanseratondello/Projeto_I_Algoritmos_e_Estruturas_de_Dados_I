@@ -274,3 +274,18 @@ void lista_imprimir(LISTA *lista){
     printf("<- Fim\n");
 }
 
+void lista_buscar(LISTA *l, void (*processar)(ITEM *item, void *), void *contexto){
+    if (l == NULL || lista_vazia(l) || processar == NULL) {
+        return;
+    }
+
+    NO *aux = l->begin;
+    while (aux != NULL) {
+        
+        
+        processar(aux->item, contexto);
+        
+        aux = aux->next;
+    }
+}
+

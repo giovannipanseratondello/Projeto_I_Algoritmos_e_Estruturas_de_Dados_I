@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include <stdio.h>
 
 #ifndef ITEM_H
 #define ITEM_H

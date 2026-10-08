@@ -123,19 +123,18 @@ int lista_tamanho(LISTA *lista){
 }
 
 
-void lista_buscar(PILHA *p, ITEM *item_ref, const char *campo, void (*processar)(ITEM *item, int resultado_comp)) {
-if (p == NULL || pilha_vazia(p) || item_ref == NULL || campo == NULL || processar == NULL) {
-    return;
+void lista_buscar(LISTA *l, void (*processar)(ITEM *item, void *), void *contexto) {
+    if (l == NULL || lista_vazia(l) || processar == NULL) {
+        return;
     }
 
-    NO *aux = p->top;
-    while (aux != NULL) {
-        // Usa a item_comparar genérica!
-        int comp = item_comparar(aux->item, item_ref, campo);
+    int i = 0;
+    while (i < lista_tamanho(l)) {
         
         // Dispara a função callback enviando o item atual e o resultado da comparação (-1, 0, ou 1)
-        processar(aux->item, comp);
+        processar(l->itens[i], contexto);
         
-        aux = aux->prior;
+        i++;
+        
     }
 }

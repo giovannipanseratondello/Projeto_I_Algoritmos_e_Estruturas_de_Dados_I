@@ -175,3 +175,17 @@ int lista_tamanho(LISTA *lista){
     return lista->size;
 }
 
+void lista_buscar(LISTA *l, void (*processar)(ITEM *item, void *), void *contexto){
+    if (l == NULL || lista_vazia(l) || processar == NULL) {
+        return;
+    }
+
+    NO *aux = l->begin;
+    while (aux != NULL) {
+        
+        
+        processar(aux->item, contexto);
+        
+        aux = aux->next;
+    }
+}
